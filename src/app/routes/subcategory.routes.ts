@@ -9,5 +9,6 @@ const _subCategoryController = new SubCategoryController();
 
 subCategoriesRouter.use(ensureAuthenticated);
 subCategoriesRouter.post('/', _subCategoryController.store);
+subCategoriesRouter.get('/', _subCategoryController.getAll);
 
 export default subCategoriesRouter;

@@ -9,5 +9,6 @@ const _categoryController = new CategoryController();
 
 categoriesRouter.use(ensureAuthenticated);
 categoriesRouter.post('/', _categoryController.store);
+categoriesRouter.get('/', _categoryController.getAll);
 
 export default categoriesRouter;

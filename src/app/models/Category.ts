@@ -6,6 +6,12 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+export enum family {
+  WOMAN = 'Feminino',
+  MAN = 'Masculino',
+  KIAS = 'Kids',
+}
+
 @Entity('categories')
 class Category {
   @PrimaryGeneratedColumn('increment')
@@ -13,6 +19,13 @@ class Category {
 
   @Column()
   name: string;
+
+  @Column({
+    type: 'enum',
+    enum: family,
+    default: family.WOMAN,
+  })
+  kidsOrManOrWoman: family;
 
   @CreateDateColumn()
   created_at: Date;

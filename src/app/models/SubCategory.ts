@@ -21,7 +21,7 @@ class SubCategory {
   category_id: number;
 
   @ManyToOne(() => Category)
-  @JoinColumn({ name: 'category_id' })
+  @JoinColumn({ name: 'category_id', referencedColumnName: 'id' })
   category: Category;
 
   @CreateDateColumn()

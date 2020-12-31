@@ -11,10 +11,7 @@ const upload = multer(uploadConfig);
 const _productController = new ProductController();
 
 productRouter.use(ensureAuthenticated);
-productRouter.post(
-  '/',
-  upload.single('file'),
-  _productController.store,
-);
+productRouter.post('/', upload.single('file'), _productController.store);
+productRouter.get('/', _productController.getAll);
 
 export default productRouter;

@@ -1,22 +1,47 @@
-import { Schema, model, Document } from 'mongoose';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  JoinColumn,
+  ManyToOne,
+} from 'typeorm';
 
-export interface IProduct extends Document {
+import SubCategory from './SubCategory';
+
+@Entity('products')
+class Product {
+  @PrimaryGeneratedColumn('increment')
+  id: number;
+
+  @Column()
   name: string;
-  image: string;
+
+  @Column()
+  imageName: string;
+
+  @Column()
+  pathImage: string;
+
+  @Column()
   description: string;
+
+  @Column({ type: 'float' })
   price: number;
+
+  @Column()
+  subcategory_id: number;
+
+  @ManyToOne(() => SubCategory)
+  @JoinColumn({ name: 'subcategory_id', referencedColumnName: 'id' })
+  subcategory: SubCategory;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
 }
 
-const ProductSchema = new Schema(
-  {
-    name: String,
-    description: String,
-    price: Number,
-    image: String,
-  },
-  {
-    timestamps: true,
-  },
-);
-
-export default model<IProduct>('Product', ProductSchema);
+export default Product;

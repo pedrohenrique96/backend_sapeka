@@ -31,6 +31,6 @@ export default class AlterSubCategoryId1609129745777
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.dropForeignKey('categories', 'categoriesId');
-    await queryRunner.dropTable('subcategories');
+    await queryRunner.dropColumn('subcategories', 'category_id');
   }
 }
