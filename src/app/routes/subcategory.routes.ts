@@ -10,5 +10,6 @@ const _subCategoryController = new SubCategoryController();
 subCategoriesRouter.use(ensureAuthenticated);
 subCategoriesRouter.post('/', _subCategoryController.store);
 subCategoriesRouter.get('/', _subCategoryController.getAll);
+subCategoriesRouter.delete('/delete/:id', _subCategoryController.delete);
 
 export default subCategoriesRouter;

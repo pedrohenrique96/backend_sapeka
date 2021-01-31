@@ -10,9 +10,9 @@ import './database';
 const App = (): express.Express => {
   const server = express();
 
+  server.use(cors());
   server.use(express.json());
   server.use(routes);
-  server.use(cors());
   server.use('/files', express.static(uploadConfig.directory));
 
   server.use(

@@ -20,10 +20,11 @@ export default class SubCategoryController {
     const subCategoryRepository = getRepository(SubCategory);
     const categoryRepository = getRepository(Category);
     const { name, category_id } = req.body;
+    console.log(req.body)
 
     const schema = yup.object().shape({
       name: yup.string().required(),
-      category_id: yup.number().negative().required(),
+      category_id: yup.number().positive().required(),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -50,5 +51,22 @@ export default class SubCategoryController {
     await subCategoryRepository.save(subcategory);
 
     return res.status(200).json(subcategory);
+  }
+
+  async delete(req: Request, res: Response): Promise<Response> {
+    const subCategoryRepository = getRepository(SubCategory);
+
+    const { id } = req.params;
+
+    const isExistSubCategories = await subCategoryRepository.findOne({
+      where: { id },
+    });
+    if (!isExistSubCategories) {
+      throw new AppError('This SubCategory is not exist', 400);
+    }
+
+    await subCategoryRepository.delete(id);
+
+    return res.status(200).json();
   }
 }
