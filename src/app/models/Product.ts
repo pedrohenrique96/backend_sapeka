@@ -19,9 +19,6 @@ class Product {
   name: string;
 
   @Column()
-  imageName: string;
-
-  @Column()
   description: string;
 
   @Column({ type: 'float' })

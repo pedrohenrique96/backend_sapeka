@@ -17,17 +17,16 @@ export default class ProductController {
 
   async store(req: Request, res: Response): Promise<Response> {
     const { name, price, description, subcategory_id } = req.body;
-    const { filename } = req.file;
 
     const product = await new CreateServiceProduct().execute({
       description,
-      filename,
       name,
       price,
       subcategory_id,
     });
+    console.log(req.file)
 
-    return res.status(200).json(product);
+    return res.status(200).json();
   }
 
   async delete(req: Request, res: Response): Promise<Response> {

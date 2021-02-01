@@ -34,6 +34,7 @@
     "prefer-destructuring": "off",
     "class-methods-use-this": "off",
     "import/extensions": "off",
+    "no-console":"off",
     "consistent-return": "off",
     "import/no-extraneous-dependencies": [
       "error",

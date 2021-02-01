@@ -42,7 +42,7 @@ export default class SubCategoryController {
       throw new AppError('This Category is not exist', 400);
     }
 
-    const subcategory = await subCategoryRepository.create({
+    const subcategory = subCategoryRepository.create({
       name,
       category_id,
     });

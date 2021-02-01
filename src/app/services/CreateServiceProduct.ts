@@ -9,7 +9,6 @@ interface Request {
   price: number;
   description: string;
   subcategory_id: number;
-  filename: string;
 }
 
 class CreateServiceProduct {
@@ -18,7 +17,6 @@ class CreateServiceProduct {
     name,
     price,
     subcategory_id,
-    filename,
   }: Request): Promise<Product> {
     const productRepository = getRepository(Product);
     const subCategoriesRepository = getRepository(SubCategory);
@@ -28,6 +26,7 @@ class CreateServiceProduct {
       price: yup.number().positive().required(),
       subcategory_id: yup.number().positive().required(),
       description: yup.string().required(),
+      imageName: yup.string(),
     });
 
     if (!(await schema.isValid({ description, name, price, subcategory_id }))) {
@@ -47,7 +46,6 @@ class CreateServiceProduct {
       price,
       description,
       subcategory_id: subCategoryExists.id,
-      imageName: filename,
     });
 
     await productRepository.save(product);
