@@ -27,6 +27,9 @@ class Product {
   @Column()
   subcategory_id: number;
 
+  @Column()
+  sold: boolean;
+
   @ManyToOne(() => SubCategory)
   @JoinColumn({ name: 'subcategory_id', referencedColumnName: 'id' })
   subcategory: SubCategory;

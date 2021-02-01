@@ -17,5 +17,6 @@ productRouter.use(verifyUserProvider);
 productRouter.post('/', upload.single('file'), productController.store);
 productRouter.get('/', productController.getAll);
 productRouter.delete('/delete/:id', productController.delete);
+productRouter.patch('/sold/:id', productController.soldProduct);
 
 export default productRouter;

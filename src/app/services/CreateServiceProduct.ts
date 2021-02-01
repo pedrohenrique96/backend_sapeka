@@ -9,6 +9,7 @@ interface Request {
   price: number;
   description: string;
   subcategory_id: number;
+  sold: boolean;
 }
 
 class CreateServiceProduct {
@@ -17,6 +18,7 @@ class CreateServiceProduct {
     name,
     price,
     subcategory_id,
+    sold,
   }: Request): Promise<Product> {
     const productRepository = getRepository(Product);
     const subCategoriesRepository = getRepository(SubCategory);
@@ -46,6 +48,7 @@ class CreateServiceProduct {
       price,
       description,
       subcategory_id: subCategoryExists.id,
+      sold,
     });
 
     await productRepository.save(product);
