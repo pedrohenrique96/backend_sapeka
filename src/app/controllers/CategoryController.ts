@@ -41,4 +41,21 @@ export default class CategoryController {
 
     return res.status(200).json(category);
   }
+
+  async delete(req: Request, res: Response): Promise<Response> {
+    const categoryRepository = getRepository(Category);
+
+    const { id } = req.params;
+
+    const category = await categoryRepository.findOne({
+      where: { id },
+    });
+    if (!category) {
+      throw new AppError('This category is not exist', 400);
+    }
+
+    await categoryRepository.delete(category.id);
+
+    return res.status(200).json();
+  }
 }

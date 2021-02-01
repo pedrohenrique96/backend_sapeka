@@ -1,15 +1,17 @@
 import { Router } from 'express';
 import SubCategoryController from '../controllers/SubCategoryController';
 import ensureAuthenticated from '../middleware/EnsureAuthenticated';
+import verifyUserProvider from '../middleware/VerifyUserProvider';
 
 const subCategoriesRouter = Router();
 
 // instances
-const _subCategoryController = new SubCategoryController();
+const subCategoryController = new SubCategoryController();
 
 subCategoriesRouter.use(ensureAuthenticated);
-subCategoriesRouter.post('/', _subCategoryController.store);
-subCategoriesRouter.get('/', _subCategoryController.getAll);
-subCategoriesRouter.delete('/delete/:id', _subCategoryController.delete);
+subCategoriesRouter.use(verifyUserProvider);
+subCategoriesRouter.post('/', subCategoryController.store);
+subCategoriesRouter.get('/', subCategoryController.getAll);
+subCategoriesRouter.delete('/delete/:id', subCategoryController.delete);
 
 export default subCategoriesRouter;

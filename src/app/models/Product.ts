@@ -22,9 +22,6 @@ class Product {
   imageName: string;
 
   @Column()
-  pathImage: string;
-
-  @Column()
   description: string;
 
   @Column({ type: 'float' })

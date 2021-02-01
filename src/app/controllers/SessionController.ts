@@ -24,6 +24,10 @@ export default class ProductController {
       throw new AppError('Incorrect email/password combination', 401);
     }
 
+    if (!user?.admin) {
+      throw new AppError('User is not manager', 401);
+    }
+
     const { secret, expiresIn } = authConfig;
 
     const token = sign({}, secret, { subject: String(user.id), expiresIn });

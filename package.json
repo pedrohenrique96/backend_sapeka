@@ -4,7 +4,7 @@
    "main": "index.js",
    "license": "MIT",
    "scripts": {
-      "dev": "ts-node-dev --inspect --ignore-watch node_modules src/server.ts",
+      "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts",
       "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
       "build": "tsc"
    },
@@ -33,9 +33,9 @@
       "@typescript-eslint/parser": "^4.10.0",
       "eslint": "^7.16.0",
       "eslint-config-airbnb-base": "^14.2.1",
-      "eslint-config-prettier": "^7.1.0",
+      "eslint-config-prettier": "^7.2.0",
       "eslint-plugin-import": "^2.22.1",
-      "eslint-plugin-prettier": "^3.3.0",
+      "eslint-plugin-prettier": "^3.3.1",
       "prettier": "^2.2.1",
       "ts-node": "3.3.0",
       "ts-node-dev": "^1.1.1",

@@ -1,9 +1,8 @@
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
-import * as yup from 'yup';
 import Product from '../models/Product';
-import SubCategory from '../models/SubCategory';
-import AppError from '../../errors/AppError';
+import DeleteServiceProduct from '../services/DeleteServiceProduct';
+import CreateServiceProduct from '../services/CreateServiceProduct';
 
 export default class ProductController {
   async getAll(req: Request, res: Response): Promise<Response> {
@@ -18,40 +17,22 @@ export default class ProductController {
 
   async store(req: Request, res: Response): Promise<Response> {
     const { name, price, description, subcategory_id } = req.body;
-    const { path, filename } = req.file;
-    const productRepository = getRepository(Product);
-    const subCategoriesRepository = getRepository(SubCategory);
+    const { filename } = req.file;
 
-    const schema = yup.object().shape({
-      name: yup.string().required(),
-      price: yup.number().positive().required(),
-      subcategory_id: yup.number().positive().required(),
-      description: yup.string().required(),
-    });
-
-    if (!(await schema.isValid(req.body))) {
-      throw new AppError('Validation fails', 400);
-    }
-
-    const isExistSubCategories = await subCategoriesRepository.findOne({
-      where: { id: subcategory_id },
-    });
-
-    if (!isExistSubCategories) {
-      throw new AppError('This SubCategory is not exist', 400);
-    }
-
-    const product = await productRepository.create({
+    const product = await new CreateServiceProduct().execute({
+      description,
+      filename,
       name,
       price,
-      description,
       subcategory_id,
-      imageName: filename,
-      pathImage: path,
     });
 
-    await productRepository.save(product);
-
     return res.status(200).json(product);
+  }
+
+  async delete(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+    await new DeleteServiceProduct().execute(Number(id));
+    return res.status(200).json();
   }
 }

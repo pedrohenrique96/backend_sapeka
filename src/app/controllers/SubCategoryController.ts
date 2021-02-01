@@ -20,7 +20,6 @@ export default class SubCategoryController {
     const subCategoryRepository = getRepository(SubCategory);
     const categoryRepository = getRepository(Category);
     const { name, category_id } = req.body;
-    console.log(req.body)
 
     const schema = yup.object().shape({
       name: yup.string().required(),

@@ -8,7 +8,7 @@ import authConfig from '../../config/auth';
 interface TokenPayload {
   iat: number;
   exp: number;
-  sub: string;
+  sub: number;
 }
 
 export default function ensureAuthenticated(
@@ -29,9 +29,7 @@ export default function ensureAuthenticated(
 
     const { sub } = decoded as TokenPayload;
 
-    // request.userId = {
-    //   id: sub,
-    // };
+    request.user_id = sub;
 
     return next();
   } catch {

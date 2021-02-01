@@ -3,15 +3,19 @@ import multer from 'multer';
 import uploadConfig from '../../config/upload';
 import ProductController from '../controllers/ProductController';
 import ensureAuthenticated from '../middleware/EnsureAuthenticated';
+import verifyUserProvider from '../middleware/VerifyUserProvider';
 
 const productRouter = Router();
 const upload = multer(uploadConfig);
 
 // instances
-const _productController = new ProductController();
+const productController = new ProductController();
 
 productRouter.use(ensureAuthenticated);
-productRouter.post('/', upload.single('file'), _productController.store);
-productRouter.get('/', _productController.getAll);
+productRouter.use(verifyUserProvider);
+
+productRouter.post('/', upload.single('file'), productController.store);
+productRouter.get('/', productController.getAll);
+productRouter.delete('/delete/:id', productController.delete);
 
 export default productRouter;
